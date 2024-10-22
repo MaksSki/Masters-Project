@@ -4,7 +4,6 @@
 @author: Maksymilian Skiba
 Quantum Information Theory Perspective on Structure and Complexity
 QR Decomposition in Computational Form
-Schmitt Decomposition
 """
 
 import numpy as np
