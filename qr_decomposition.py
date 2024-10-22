@@ -39,7 +39,7 @@ def state_to_MPS(state_tensor):
 
 # Parameters
 N = 3
-d = 2
+d = 4
 
 # Define a general state vector
 np.random.seed(42)
@@ -83,3 +83,4 @@ k = 1  # Between qubits 1 and 2
 U, S, Vh = schmidt_decomposition_MPS(MPS, k)
 
 print("Schmidt coefficients:", S)
+print('Sum of Squares',np.sum(S**2))
