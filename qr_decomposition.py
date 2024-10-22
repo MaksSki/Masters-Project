@@ -71,9 +71,9 @@ def schmidt_decomposition_MPS(MPS, k):
     combined_matrix = np.dot(left_tensor, right_tensor)
     
     # Perform SVD
-    U, S, Vh = np.linalg.svd(combined_matrix, full_matrices=False)
+    U, schmit_c, Vh = np.linalg.svd(combined_matrix, full_matrices=False)
     
-    return U, S, Vh
+    return U, schmit_c, Vh
 
 # Choose partition
 k = 1  # Between qubits 1 and 2
