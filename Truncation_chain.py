@@ -16,7 +16,7 @@ def state_to_MPS(state_tensor):
         
         # Form MPS tensor at site n
         bond_dim = S.size
-        mps_tensor = U  # Shape: (dim_left, bond_dim)
+        mps_tensor = U  
         MPS.append(mps_tensor)
         
         # Prepare tensor for next iteration
