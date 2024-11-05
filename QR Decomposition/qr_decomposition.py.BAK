@@ -1,3 +1,12 @@
+
+"""
+20/10/25
+@author: Maksymilian Skiba
+Quantum Information Theory Perspective on Structure and Complexity
+QR Decomposition in Computational Form
+Schmitt Decomposition
+"""
+
 import numpy as np
 
 def state_to_MPS(state_tensor):
@@ -16,7 +25,7 @@ def state_to_MPS(state_tensor):
         
         # Form MPS tensor at site n
         bond_dim = S.size
-        mps_tensor = U  
+        mps_tensor = U  # Shape: (dim_left, bond_dim)
         MPS.append(mps_tensor)
         
         # Prepare tensor for next iteration
@@ -27,6 +36,21 @@ def state_to_MPS(state_tensor):
     MPS.append(tensor)
     
     return MPS
+
+# Parameters
+N = 8
+d = 10
+
+# Define a general state vector
+np.random.seed(42)
+state_vector = np.random.rand(d**N) + 1j * np.random.rand(d**N)
+state_vector /= np.linalg.norm(state_vector)
+
+# Reshape into state tensor
+state_tensor = state_vector.reshape([d]*N)
+
+# Convert to MPS
+MPS = state_to_MPS(state_tensor)
 
 # Perform Schmidt Decomposition at partition k
 def schmidt_decomposition_MPS(MPS, k):
@@ -52,61 +76,52 @@ def schmidt_decomposition_MPS(MPS, k):
     
     return U, S, Vh
 
-# Truncation function
-def truncation(schmitt_coeff, threshold):
-    iterative_sq_sum = 0
-    schmitt_coeff_array_point = 0
-    while iterative_sq_sum < threshold and schmitt_coeff_array_point < len(schmitt_coeff):
-        iterative_sq_sum += schmitt_coeff[schmitt_coeff_array_point] ** 2
-        schmitt_coeff_array_point += 1
-    
-    norm_const = np.reciprocal(iterative_sq_sum)
-    unnorm_new_schmitt = schmitt_coeff[:schmitt_coeff_array_point]
-    new_schmitt_coeff = unnorm_new_schmitt * norm_const
+# Choose partition
+k = 1  # Between qubits 1 and 2
+
+# Perform Schmidt Decomposition
+U, S, Vh = schmidt_decomposition_MPS(MPS, k)
+
+print("Schmidt coefficients:", S)
+print('Sum of Squares',np.sum(S**2))
+
+def truncation(schmitt_coeff,threshold):
+    iterative_sq_sum=0
+    schmitt_coeff_array_point=0
+    while iterative_sq_sum < threshold:
+        iterative_sq_sum=+ np.square(schmitt_coeff[0])
+        schmitt_coeff_array_point=+1
+     
+    norm_const=np.reciprocal(iterative_sq_sum)
+    unnorm_new_schmitt=(schmitt_coeff[:schmitt_coeff_array_point])
+    new_schmitt_coeff=unnorm_new_schmitt*norm_const
     
     return new_schmitt_coeff, norm_const
 
-# Chain unpacking to output MPS terms with coefficients
-def chain_unpacking(MPS, threshold):
+def chain_unpacking(MPS, k, threshold):
     N = len(MPS)
-    all_truncated_info = []
+    all_truncated_coeffs = []
     
+
     for k in range(N - 1):
+
         U, S, Vh = schmidt_decomposition_MPS(MPS, k)
         
+
         truncated_coeffs, norm_const = truncation(S, threshold)
-        # Store each MPS term with its associated truncated Schmidt coefficients
-        all_truncated_info.append({
-            "partition": k,
-            "MPS_term": MPS[k],
-            "truncated_coeffs": truncated_coeffs
-        })
+        all_truncated_coeffs.append(truncated_coeffs)
+        
      
-    return all_truncated_info
-
-# Parameters
-N = 10
-d = 6
+    return all_truncated_coeffs
 
 
-# Define a general state vector
-np.random.seed(42)
-state_vector = np.random.rand(d**N) + 1j * np.random.rand(d**N)
-state_vector /= np.linalg.norm(state_vector)
-
-# Reshape into state tensor
-state_tensor = state_vector.reshape([d]*N)
-
-# Convert to MPS
-MPS = state_to_MPS(state_tensor)
-
-# Set the threshold for truncation
 threshold = 0.9
-truncated_info = chain_unpacking(MPS, threshold)
+truncated_coefficients = chain_unpacking(MPS, k, threshold)
 
-# Output MPS terms and truncated coefficients for each partition
-print("All truncated Schmidt coefficients and MPS terms for each partition:")
-for info in truncated_info:
-    print(f"Partition {info['partition']}:")
-    print(f"  MPS term: {info['MPS_term']}")
-    print(f"  Truncated Schmidt coefficients: {info['truncated_coeffs']}")
+print("All truncated Schmidt coefficients for each partition:")
+for idx, coeffs in enumerate(truncated_coefficients):
+    print(f"Partition {idx}: {coeffs}")
+
+    
+
+    
