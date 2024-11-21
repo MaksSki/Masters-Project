@@ -48,15 +48,27 @@ def partial_trace(rho, dims, axis=0):
     dims_untraced = np.delete(dims_, axis)
     rho_dim = np.prod(dims_untraced)
     return traced_out_rho.reshape([rho_dim, rho_dim])
+def random_unitary(seed=None):
+    if seed is not None:
+        np.random.seed(seed)
+        
+    # Generate a random complex matrix
+    random_matrix = np.random.randn(2, 2) + 1j * np.random.randn(2, 2)
+    
+    # Perform QR decomposition and normalize to get a unitary matrix
+    q, _ = np.linalg.qr(random_matrix)
+    return q
 
 #pauli matrices
 pauli_y = np.array([[0, -1j], [1j, 0]])
 pauli_x = np.array([[0,1],[1,0]])
 pauli_z = np.array([[1,0],[0,-1]])
 
-#initial conditions
-dt = 0.2
-U = np.cos(dt)**2 * pauli_y - np.sin(dt)**2 * pauli_z
+#initial condition
+dt = 0.1
+# Define the unitary matrix U properly formatted
+
+U = np.load("shared_U.npy")
 sys_state = np.array([1,0])
 state_initial = np.kron(sys_state,a)
 total_operator = np.kron(np.kron(U,np.eye(3)),U) #U x I(3) x U x I(2**i)
@@ -108,7 +120,7 @@ fig, ax = plt.subplots(figsize=(8, 6))
 ax.plot(steps, data, label="Expectation pauli z", color="blue", linewidth=2)
 
 # Add title and labels with proper font size
-ax.set_title("Evolution of system", fontsize=16, pad=15)
+ax.set_title("Evolution of system : No Hermit conjugate", fontsize=16, pad=15)
 ax.set_xlabel("Steps (collision with ith env state)", fontsize=14)
 ax.set_ylabel("Expectation value", fontsize=14)
 

@@ -82,11 +82,11 @@ def truncation(schmitt_coeff, threshold):
 
 					all_truncated_info.append(
 								  {
-"partition":k,
-"MPS_term_shape":MPS[k].shape,
-"truncated_coeffs":truncated_coeffs,
-"schmidt_rank":len(truncated_coeffs)
-})
+		"partition":	k,
+		"MPS_term_shape":	MPS[k].shape,
+		"truncated_coeffs":	truncated_coeffs,
+		"schmidt_rank":		len(truncated_coeffs)
+			})
 
 return all_truncated_info
 
