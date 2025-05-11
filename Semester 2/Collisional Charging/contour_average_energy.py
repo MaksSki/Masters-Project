@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from qutip import *
 
 # Global Variables
-collision_num = 4000      # Total number of collisions
+collision_num = 5000      # Total number of collisions
 n_batt = 3                # Number of batteries in the chain
 N = 200                   # Battery Hilbert space dimension (levels 0,...,N)
 theta = np.pi / 4         # Interaction parameter controlling energy transfer
@@ -83,12 +83,13 @@ for i_g, g in enumerate(g_range):
 
 # Create a contour plot: x-axis = g, y-axis = q, color = final collision number.
 G, Q = np.meshgrid(g_range, q_range, indexing='ij')
-
-plt.figure(figsize=(8, 6))
+plt.rcParams["font.family"] = "Times New Roman"
+plt.tick_params(axis='both', which='major', labelsize=18)
+plt.figure(figsize=(8, 9))
 cp = plt.contourf(G, Q, final_coll_matrix, levels=25, cmap='viridis')
 plt.colorbar(cp, label='Collision Number for Last Battery Unplug')
-plt.xlabel('Interaction Strength (g)', fontsize=14)
-plt.ylabel('Qubit Excitation Probability (q)', fontsize=14)
-plt.title(('Non-Markovian Collisions to a Full Charge for ',n_batt, 'Batteries'), fontsize=16)
+plt.xlabel('Interaction Strength (g)', fontsize=18)
+plt.ylabel('Qubit Excitation Probability', fontsize=18)
+plt.title(('Non-Markovian Collisions to a Full Charge for 3 Batteries'), fontsize=18)
 plt.tight_layout()
 plt.show()

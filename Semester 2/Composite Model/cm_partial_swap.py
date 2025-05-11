@@ -96,7 +96,7 @@ for collision in range(1, collision_num + 1):
     one_state = tensor(battery, fresh_ancilla())
 
 # --- Plot results ---
-plt.figure(figsize=(10, 6))
+
 plt.plot(collisions, avg_energy_battery, label=("p=", p_swap) ,linewidth=2)
 plt.xlabel("Number of Collisions", fontsize=14)
 plt.ylabel("Average Energy Level", fontsize=14)

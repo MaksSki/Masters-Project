@@ -84,14 +84,15 @@ for collision in range(1, collision_num + 1):
         avg_E = np.dot(levels, batteries[i].diag())
         avg_energy[i].append(avg_E)
 
-
+plt.rcParams["font.family"]="Times New Roman"
+plt.tick_params(axis='both',which='major',labelsize=18)
 plt.figure(figsize=(10, 6))
 for i in range(n_batt):
     plt.plot(collisions, avg_energy[i], label=f"Battery {i+1}", linewidth=2)
-plt.xlabel("Number of Collisions", fontsize=14)
-plt.ylabel("Average Energy Level", fontsize=14)
-plt.title("Average Energy vs. Collisions for a Chain of Batteries", fontsize=16)
-plt.legend(fontsize=12)
+plt.xlabel("Number of Collisions", fontsize=18)
+plt.ylabel("Average Energy Level", fontsize=18)
+plt.title("Average Energy vs. Collisions for a Chain of Batteries", fontsize=18)
+plt.legend(fontsize=18)
 plt.grid(True, linestyle="--", alpha=0.6)
 plt.tight_layout()
 plt.show()

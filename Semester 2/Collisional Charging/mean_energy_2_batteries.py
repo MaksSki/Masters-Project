@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from qutip import *
 
 
-collision_num = 500  # Total number of collisions
+collision_num = 2500  # Total number of collisions
 g = 1               # Interaction strength
 N = 200             # Number of battery energy levels (0,...,N)
 theta = np.pi / 4   # Interaction parameter controlling energy transfer

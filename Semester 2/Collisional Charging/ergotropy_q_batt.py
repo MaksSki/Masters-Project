@@ -5,16 +5,16 @@ import matplotlib.pyplot as plt
 from qutip import *
 
 # Global Variables
-collision_num = 1000   # Total number of collisions
-n_batt = 3             # Number of batteries in the chain
+collision_num = 1000  # Total number of collisions
+n_batt = 3            # Number of batteries in the chain
 N = 200                # Battery Hilbert space dimension (levels 0,...,N)
 theta = np.pi / 4      # Interaction parameter controlling energy transfer
 q = 0.75               # Probability for the qubit to be in the excited state |1>
 c = 1                  # Coherence parameter for the ancilla
-g = 1                  # Interaction strength
+g = 0.9                # Interaction strength
 
 # Battery unplug threshold (85% of full charge)
-unplug_threshold = 0.85 * N
+unplug_threshold =  0.85*N
 
 # Operators
 A = sum(basis(N+1, n-1) * basis(N+1, n).dag() for n in range(1, N+1))
@@ -104,15 +104,64 @@ for collision in range(1, collision_num + 1):
         ergotropy[i].append(avg_E - passive_E)
 
 # Plot the results: average energy as a solid line and ergotropy as a dotted line
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(10, 9))
 for i in range(n_batt):
     plt.plot(collisions, avg_energy[i], label=f"Battery {i+1} Avg Energy", linewidth=2)
     plt.plot(collisions, ergotropy[i], linestyle=':', label=f"Battery {i+1} Ergotropy", linewidth=2)
 
-plt.xlabel("Number of Collisions", fontsize=14)
-plt.ylabel("Energy / Ergotropy", fontsize=14)
-plt.title("Average Energy and Ergotropy vs. Collisions", fontsize=16)
-plt.legend(fontsize=12)
+
+# Compute max ergotropy for battery 1
+max_erg = max(ergotropy[0])
+
+# Plot the results: average energy, ergotropy, and max‐ergotropy line
+# find the collision index of max ergotropy
+max_idx       = np.argmax(ergotropy[0])      # zero‐based index into your list
+collision_max = collisions[max_idx]          # the collision number
+
+# Plot the results: average energy, ergotropy, and max‐ergotropy marker
+plt.figure(figsize=(10, 9))
+plt.plot(collisions, avg_energy[0], label="Average Energy", linewidth=2)
+plt.plot(collisions, ergotropy[0],  linestyle=':',  label="Ergotropy", linewidth=2)
+
+# vertical line at the collision of max ergotropy
+plt.rcParams["font.family"]="Times New Roman"
+plt.tick_params(axis='both',which='major',labelsize=18)
+plt.axvline(x=collision_max, linestyle='--', label=fr"Peak Ergotropy  $",color='red')
+
+plt.xlabel("Number of Collisions", fontsize=18)
+plt.ylabel("Average Energy and Ergotropy",    fontsize=18)
+plt.title("Possible Work Extraction for a 3-Level Battery system", fontsize=18)
+plt.legend(fontsize=18)
+plt.grid(True, linestyle="--", alpha=0.6)
+plt.tight_layout()
+plt.show()
+# ... (previous code unchanged)
+
+# Plot the results: average energy, ergotropy for all batteries, and max‐ergotropy line for battery 1
+plt.figure(figsize=(10, 9))
+
+for i in range(n_batt):
+    plt.plot(collisions, avg_energy[i],
+             label=f"Battery {i+1} Average Energy",
+             linewidth=2)
+    plt.plot(collisions, ergotropy[i],
+             linestyle=':',
+             label=f"Battery {i+1} Ergotropy",
+             linewidth=2)
+
+# vertical line at the collision of max ergotropy (for battery 1)
+plt.rcParams["font.family"] = "Times New Roman"
+plt.tick_params(axis='both', which='major', labelsize=18)
+"""
+plt.axvline(x=collision_max,
+            linestyle='--',
+            label="Battery 1 - Peak Ergotropy",
+            color='red')
+"""""
+plt.xlabel("Number of Collisions", fontsize=18)
+plt.ylabel("Average Energy and Ergotropy", fontsize=18)
+plt.title("Possible Work Extraction for a 3-Level Battery system", fontsize=18)
+plt.legend(fontsize=18)
 plt.grid(True, linestyle="--", alpha=0.6)
 plt.tight_layout()
 plt.show()
