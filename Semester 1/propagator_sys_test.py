@@ -2,7 +2,6 @@
 """
 Created on Tue Oct  1 22:27:23 2024
 
-@author: Rithichan
 
 Task 1: Evolution of some toy system given by H = pauli_y (x) pauli_y
 system_initial = ket(0)bra(0)
@@ -93,3 +92,4 @@ plt.tight_layout()
 plt.savefig("Evolution of expectation pauli z.jpg",dpi=200)
 # Show the plot
 plt.show()
+
