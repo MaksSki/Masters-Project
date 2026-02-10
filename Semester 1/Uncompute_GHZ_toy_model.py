@@ -2,7 +2,7 @@
 """
 Created on Wed Oct 30 13:20:47 2024
 
-@author: rithi
+
 """
 
 import numpy as np
@@ -183,4 +183,5 @@ plt.tight_layout()
 
 #plt.savefig("evolution_pauli_z_uncomp.jpg",dpi=400)
 # Show the plot
+
 plt.show()
