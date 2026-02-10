@@ -2,7 +2,6 @@
 """
 Created on Thu Oct  3 13:39:06 2024
 
-@author: rithi
 """
 
 import numpy as np
@@ -119,6 +118,7 @@ plt.tight_layout()
 plt.savefig("Evolution_replace_vs_cont.jpg",dpi=200)
 # Show the plot
 plt.show()
+
 
 
 
