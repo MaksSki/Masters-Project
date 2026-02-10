@@ -4,7 +4,6 @@ Created on Mon Oct 28 14:18:55 2024
 
 Sequential generation 2
 
-@author: rithi
 """
 
 import numpy as np
@@ -67,4 +66,5 @@ for i in range(len_states):
     dens_op = np.outer(state,state)
     traced_out_rho = partial_trace(dens_op, [3,2**(i+1)])
     
+
     
