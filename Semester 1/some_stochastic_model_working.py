@@ -2,7 +2,7 @@
 """
 Created on Thu Nov  7 13:02:26 2024
 
-@author: rithi
+
 """
 
 import numpy as np
@@ -254,3 +254,4 @@ plt.tight_layout()
 # Show the plot
 plt.show()        
     
+
