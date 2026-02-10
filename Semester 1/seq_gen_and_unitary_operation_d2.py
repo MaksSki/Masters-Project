@@ -4,7 +4,7 @@ Created on Mon Oct 28 16:27:17 2024
 
 Seq Gen with Unitary action
 
-@author: rithi
+
 """
 
 import numpy as np
@@ -140,4 +140,5 @@ plt.tight_layout()
 
 #plt.savefig("Evolution of expectation pauli z.jpg",dpi=200)
 # Show the plot
+
 plt.show()
