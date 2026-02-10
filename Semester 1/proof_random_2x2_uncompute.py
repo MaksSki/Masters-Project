@@ -2,7 +2,6 @@
 """
 Created on Thu Oct 31 13:45:35 2024
 
-@author: rithi
 """
 
 import numpy as np
@@ -77,4 +76,5 @@ sys_1 = partial_trace(density_matrix_from_vector, [2,2])
 sys_2 = partial_trace(total_rho, [2,2])
 
 print(np.allclose(sys_1,sys_2))
+
 
