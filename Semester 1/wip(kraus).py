@@ -2,7 +2,6 @@
 """
 Created on Thu Oct  3 15:28:05 2024
 
-@author: rithi
 """
 
 import numpy as np
@@ -74,4 +73,5 @@ plt.tight_layout()
 
 plt.savefig("Evolution of expectation pauli z(Kraus Operators).jpg",dpi=200)
 # Show the plot
+
 plt.show()
