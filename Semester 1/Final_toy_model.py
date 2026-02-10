@@ -3,7 +3,7 @@
 """
 Created on Thu Nov 21 15:30:50 2024
 
-@author: rithi
+
 """
 
 import numpy as np
@@ -332,4 +332,5 @@ plt.tight_layout(pad=2)
 
 #plt.savefig("Evolution of expectation pauli z.jpg",dpi=200)
 # Show the plot
+
 plt.show()   
