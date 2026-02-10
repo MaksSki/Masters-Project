@@ -2,7 +2,6 @@
 """
 Created on Mon Oct 28 17:02:59 2024
 
-@author: rithi
 """
 
 import numpy as np
@@ -197,4 +196,5 @@ plt.tight_layout()
 
 plt.savefig("Comparison_seq_gen_vs_direct.jpg",dpi=200)
 # Show the plot
+
 plt.show()
