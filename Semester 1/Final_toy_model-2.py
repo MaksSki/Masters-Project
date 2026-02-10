@@ -2,7 +2,6 @@
 """
 Created on Thu Nov 21 15:30:50 2024
 
-@author: rithi
 
 Collisional Model for generally correlated ancilla states.
 """
@@ -350,3 +349,4 @@ plt.tight_layout(pad=2)
 #plt.savefig("Evolution ex-z comparison A-matrix, p=0.1.jpg",dpi=200)
 # Show the plot
 plt.show()
+
